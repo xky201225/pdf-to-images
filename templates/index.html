@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PDF 转图片</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="app-header">
+        <div class="brand-mark">PDF</div>
+        <div>
+          <h1>PDF 转图片</h1>
+          <p>按页将 PDF 转换成 PNG、JPG 或 WebP 图片</p>
+        </div>
+      </header>
+
+      <section class="panel">
+        <label class="drop-zone" id="dropZone">
+          <input type="file" id="fileInput" accept=".pdf,application/pdf" hidden />
+          <span class="drop-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+              <path d="M14 2v6h6" />
+              <path d="M9 15h6M9 11h2" />
+            </svg>
+          </span>
+          <span class="drop-copy">
+            <strong id="fileName">选择 PDF 文件</strong>
+            <small id="fileMeta">或拖放到这里</small>
+          </span>
+        </label>
+
+        <div class="grid">
+          <label class="field full">
+            <span>输出目录</span>
+            <div class="folder-picker">
+              <input type="text" id="outputDir" placeholder="点击选择保存文件夹" spellcheck="false" readonly />
+              <button id="browseBtn" class="secondary" type="button">
+                <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                </svg>
+                选择文件夹
+              </button>
+            </div>
+          </label>
+
+          <label class="field">
+            <span>图片格式</span>
+            <select id="format">
+              <option value="png" selected>PNG</option>
+              <option value="jpg">JPG</option>
+              <option value="webp">WebP</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>清晰度 DPI</span>
+            <input type="number" id="dpi" value="150" min="36" max="600" step="1" />
+          </label>
+
+          <label class="field">
+            <span>页码范围</span>
+            <input type="text" id="pageRange" placeholder="留空为全部，如 1-3,5" spellcheck="false" />
+          </label>
+
+          <label class="field">
+            <span>文件名前缀</span>
+            <input type="text" id="prefix" value="page" maxlength="40" spellcheck="false" />
+          </label>
+        </div>
+
+        <div class="actions">
+          <button id="convertBtn" class="primary" type="button">
+            <span>开始转换</span>
+          </button>
+          <span id="status" class="status" role="status">等待选择文件</span>
+        </div>
+      </section>
+
+      <section class="results" id="results" hidden>
+        <div class="results-head">
+          <h2>转换完成</h2>
+          <button id="clearBtn" class="ghost" type="button">清空列表</button>
+        </div>
+        <ul id="resultList"></ul>
+      </section>
+    </main>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
